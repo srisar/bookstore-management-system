@@ -1,5 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
 
 body {
+    font-family: 'Roboto', sans-serif;
     background-color: #f3f5f8;
 }
 
@@ -16,7 +18,7 @@ body, .form-control, .dropdown-menu, .btn {
     font-size: 0.9rem;
     font-weight: bold;
     text-align: center;
-    padding: .5rem!important;
+    padding: .5rem !important;
     text-transform: uppercase;
 }
 

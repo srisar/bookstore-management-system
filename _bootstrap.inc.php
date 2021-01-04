@@ -13,11 +13,14 @@ require_once "vendor/autoload.php";
 use App\Core\App;
 use App\Core\Database\Database;
 
+$dotenv = \Dotenv\Dotenv::createImmutable(__DIR__);
+$dotenv->load();
+
 $db_config = [
-    'HOST' => 'localhost',
-    'DATABASE' => 'bookstore',
-    'USERNAME' => 'root',
-    'PASSWORD' => '',
+    'HOST' => $_ENV['DB_HOST'],
+    'DATABASE' => $_ENV['DB_NAME'],
+    'USERNAME' => $_ENV['DB_USERNAME'],
+    'PASSWORD' => $_ENV['DB_PASSWORD'],
 ];
 
 
@@ -29,8 +32,8 @@ Database::init($db_config);
 
 define('SITE_URL', 'http://localhost');
 define('BASE_PATH', __DIR__);
-define('APP_NAME', 'Bookstore Man');
-define('APP_VERSION', '0.0.1');
+define('APP_NAME', $_ENV['APP_NAME']);
+define('APP_VERSION', $_ENV['APP_VERSION']);
 
 
 App::setTitle("");
