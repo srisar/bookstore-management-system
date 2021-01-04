@@ -12,6 +12,52 @@
             <div class="card-header">Book purchases</div>
             <div class="card-body">
 
+              <div class="alert alert-light">
+
+                <div class="form-row">
+
+                  <div class="col col-lg-3">
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">Start</div>
+                      </div>
+                      <input type="date" class="form-control" v-model="filters.startDate">
+                    </div>
+                  </div>
+
+                  <div class="col col-lg-3">
+
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">End</div>
+                      </div>
+                      <input type="date" class="form-control" v-model="filters.endDate">
+                    </div>
+
+                  </div>
+
+                  <div class="col col-lg-3">
+
+                    <div class="input-group">
+                      <div class="input-group-prepend">
+                        <div class="input-group-text">Suppliers</div>
+                      </div>
+                      <select class="form-control" v-model="filters.supplier_id">
+                        <option value="0">All</option>
+                        <option v-for="item in filters.suppliersList" :value="item.id">{{ item.supplier_name }}</option>
+                      </select>
+                    </div>
+
+                  </div>
+
+                  <div class="col col-lg-3">
+                    <button class="btn btn-primary" @click="onClickFilter">Filter</button>
+                  </div>
+
+                </div><!-- row -->
+
+              </div>
+
               <table class="table table-bordered table-sm">
                 <thead>
                 <tr>
@@ -29,8 +75,12 @@
                   <td>{{ item.book.book_title }}</td>
                   <td>{{ item.supplier.supplier_name }}</td>
                   <td class="text-right">{{ item.quantity }}</td>
-                  <td class="text-right">{{ getUnitPriceLabel(item.unit_price) }}</td>
+                  <td class="text-right">{{ getPriceLabel(item.unit_price) }}</td>
                   <td class="text-right">{{ getTotalPriceLabel(item.quantity, item.unit_price) }}</td>
+                </tr>
+                <tr>
+                  <td colspan="5"></td>
+                  <td class="text-right font-weight-bold">{{ getPriceLabel(totalSum) }}</td>
                 </tr>
                 </tbody>
               </table>
@@ -49,6 +99,8 @@
 
 <script>
 
+import {DateTime} from "luxon";
+
 const _ = require('lodash');
 
 export default {
@@ -57,32 +109,75 @@ export default {
   data() {
     return {
       bookPurchases: {},
+
+      filters: {
+        startDate: DateTime.local().minus({week: 1}).toISODate(),
+        endDate: DateTime.local().toISODate(),
+        supplier_id: "0",
+        suppliersList: [],
+      },
+
+      calculations: {
+        tableTotal: 0,
+      }
+
     }
   },
 
-  computed: {},
+  computed: {
+
+    totalSum: function () {
+      let total = 0;
+      if (!_.isEmpty(this.bookPurchases)) {
+        for (const item of this.bookPurchases) {
+          let lineTotal = _.toNumber(item.quantity) * _.toNumber(item.unit_price);
+          total += lineTotal;
+        }
+      }
+
+      return total;
+    },
+
+  },
 
   mounted() {
-    this.fetchBookPurchases();
+    this._fetchBookPurchases();
+    this._fetchSuppliers();
   },
 
   methods: {
-    fetchBookPurchases() {
+    _fetchBookPurchases() {
 
-      $.get(`${getSiteURL()}/api/get/book-purchases.php`)
+      $.get(`${getSiteURL()}/api/get/book-purchases.php`, {
+        supplier_id: this.filters.supplier_id,
+        start_date: this.filters.startDate,
+        end_date: this.filters.endDate
+      }).done(r => {
+        this.bookPurchases = r.data;
+      }).fail(e => {
+        console.log(e);
+      });
+    },
+
+    _fetchSuppliers: function () {
+      $.get(`${getSiteURL()}/api/get/suppliers.php`)
           .done(r => {
-            this.bookPurchases = r.data;
+            this.filters.suppliersList = r.data;
           })
           .fail(e => {
-            console.log(e);
-          })
+            console.log(e.responseJSON.message);
+          });
+    },
 
+
+    onClickFilter: function () {
+      this._fetchBookPurchases();
     },
 
     /*
     * PRIVATE METHODS
     * */
-    getUnitPriceLabel: function (price) {
+    getPriceLabel: function (price) {
       return `${price.toFixed(2)} BHD`
     },
 

@@ -5,7 +5,7 @@ body {
     background-color: #f3f5f8;
 }
 
-body, .form-control, .dropdown-menu, .btn {
+body, .form-control, .dropdown-menu, .btn, .input-group-text {
     font-size: 0.9rem !important;
 }
 
