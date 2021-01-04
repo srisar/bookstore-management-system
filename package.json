@@ -1,0 +1,34 @@
+{
+  "name": "pavi_soms_project",
+  "version": "1.0.0",
+  "description": "This README would normally document whatever steps are necessary to get your application up and running.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "development": "mix",
+    "watch": "mix watch",
+    "watch-poll": "mix watch -- --watch-options-poll=1000",
+    "hot": "mix watch --hot",
+    "production": "mix --production"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://srisaravana@bitbucket.org/srisaravana/pavi_soms_project.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "homepage": "https://bitbucket.org/srisaravana/pavi_soms_project#readme",
+  "devDependencies": {
+    "cross-env": "^7.0.3",
+    "laravel-mix": "^6.0.6",
+    "lodash": "^4.17.20",
+    "luxon": "^1.25.0",
+    "postcss": "^8.2.2",
+    "vue": "^2.6.12",
+    "vue-loader": "^15.9.6",
+    "vue-template-compiler": "^2.6.12"
+  }
+}
