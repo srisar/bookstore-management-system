@@ -31,7 +31,7 @@ Database::init($db_config);
  */
 
 define('SITE_URL', 'http://localhost');
-define('BASE_PATH', __DIR__);
+define('BASE_PATH', __DIR__ . '/public');
 define('APP_NAME', $_ENV['APP_NAME']);
 define('APP_VERSION', $_ENV['APP_VERSION']);
 
