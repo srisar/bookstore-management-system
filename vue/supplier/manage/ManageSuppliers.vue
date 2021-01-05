@@ -7,7 +7,7 @@
 
         <div class="col">
 
-          <div class="card">
+          <div class="card shadow shadow-sm">
             <div class="card-header">Suppliers</div>
             <div class="card-body">
 

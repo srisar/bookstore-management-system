@@ -65,6 +65,33 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "EditUser",
   props: ['user'],
@@ -87,16 +114,22 @@ __webpack_require__.r(__webpack_exports__);
       }, {
         key: 'ADMIN',
         value: 'Administrator'
-      }]
+      }],
+      updatePassword: false
     };
   },
   watch: {
+    /*
+    * Watch for user prop: if set, then display the moral window
+    * */
     user: function user(value) {
       if (value !== undefined) {
         this.selectedUser.id = value.id;
         this.selectedUser.username = value.username;
         this.selectedUser.display_name = value.display_name;
         this.selectedUser.role = value.role;
+        this.selectedUser.new_password = "";
+        this.selectedUser.confirm_new_password = "";
         this.showModal();
       }
     }
@@ -106,11 +139,21 @@ __webpack_require__.r(__webpack_exports__);
     passwordValidated: function passwordValidated() {
       if (this.selectedUser.new_password === "") return false;
       return this.selectedUser.new_password === this.selectedUser.confirm_new_password;
+    },
+    isFormValid: function isFormValid() {
+      if (this.updatePassword) {
+        return this.passwordValidated && this.selectedUser.display_name !== "";
+      }
+
+      return this.selectedUser.display_name !== "";
     }
   },
   mounted: function mounted() {
     var _this = this;
 
+    /*
+    * Empty selected user when modal is closed.
+    * */
     $("#modal-edit-user").on('hidden.bs.modal', function (e) {
       _this.selectedUser = {
         id: "",
@@ -124,8 +167,22 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    /*
+    * Show modal window
+    * */
     showModal: function showModal() {
       $("#modal-edit-user").modal('show');
+    },
+    onClickUpdateUser: function onClickUpdateUser() {
+      $.post("".concat(getSiteURL(), "/api/update/user.php"), {
+        id: this.selectedUser.id,
+        display_name: this.selectedUser.display_name,
+        password: this.selectedUser.new_password,
+        role: this.selectedUser.role,
+        change_password: this.updatePassword
+      }).done(function (r) {
+        console.log(r);
+      }).fail(function (e) {});
     }
   }
 });
@@ -143,6 +200,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => __WEBPACK_DEFAULT_EXPORT__
 /* harmony export */ });
 /* harmony import */ var _EditUser__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./EditUser */ "./vue/users/manage/EditUser.vue");
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -500,142 +576,225 @@ var render = function() {
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Display name")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.selectedUser.display_name,
-                      expression: "selectedUser.display_name"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "text" },
-                  domProps: { value: _vm.selectedUser.display_name },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
+              _c("div", { staticClass: "form-row" }, [
+                _c("div", { staticClass: "col" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Display name")]),
+                    _vm._v(" "),
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.selectedUser.display_name,
+                          expression: "selectedUser.display_name"
+                        }
+                      ],
+                      staticClass: "form-control",
+                      attrs: { type: "text" },
+                      domProps: { value: _vm.selectedUser.display_name },
+                      on: {
+                        input: function($event) {
+                          if ($event.target.composing) {
+                            return
+                          }
+                          _vm.$set(
+                            _vm.selectedUser,
+                            "display_name",
+                            $event.target.value
+                          )
+                        }
                       }
-                      _vm.$set(
-                        _vm.selectedUser,
-                        "display_name",
-                        $event.target.value
-                      )
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("New Password")]),
+                    })
+                  ])
+                ]),
                 _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.selectedUser.new_password,
-                      expression: "selectedUser.new_password"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "password" },
-                  domProps: { value: _vm.selectedUser.new_password },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.selectedUser,
-                        "new_password",
-                        $event.target.value
-                      )
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Confirm new password")]),
-                _vm._v(" "),
-                _c("input", {
-                  directives: [
-                    {
-                      name: "model",
-                      rawName: "v-model",
-                      value: _vm.selectedUser.confirm_new_password,
-                      expression: "selectedUser.confirm_new_password"
-                    }
-                  ],
-                  staticClass: "form-control",
-                  attrs: { type: "password" },
-                  domProps: { value: _vm.selectedUser.confirm_new_password },
-                  on: {
-                    input: function($event) {
-                      if ($event.target.composing) {
-                        return
-                      }
-                      _vm.$set(
-                        _vm.selectedUser,
-                        "confirm_new_password",
-                        $event.target.value
-                      )
-                    }
-                  }
-                })
-              ]),
-              _vm._v(" "),
-              _c("div", { staticClass: "form-group" }, [
-                _c("label", [_vm._v("Role")]),
-                _vm._v(" "),
-                _c(
-                  "select",
-                  {
-                    directives: [
+                _c("div", { staticClass: "col" }, [
+                  _c("div", { staticClass: "form-group" }, [
+                    _c("label", [_vm._v("Role")]),
+                    _vm._v(" "),
+                    _c(
+                      "select",
                       {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.selectedUser.role,
-                        expression: "selectedUser.role"
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.selectedUser.role,
+                            expression: "selectedUser.role"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        on: {
+                          change: function($event) {
+                            var $$selectedVal = Array.prototype.filter
+                              .call($event.target.options, function(o) {
+                                return o.selected
+                              })
+                              .map(function(o) {
+                                var val = "_value" in o ? o._value : o.value
+                                return val
+                              })
+                            _vm.$set(
+                              _vm.selectedUser,
+                              "role",
+                              $event.target.multiple
+                                ? $$selectedVal
+                                : $$selectedVal[0]
+                            )
+                          }
+                        }
+                      },
+                      _vm._l(_vm.roles, function(item) {
+                        return _c("option", { domProps: { value: item.key } }, [
+                          _vm._v(_vm._s(item.value))
+                        ])
+                      }),
+                      0
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _c("hr"),
+              _vm._v(" "),
+              _c("div", { staticClass: "form-row" }, [
+                _c("div", { staticClass: "col mb-2" }, [
+                  _c("div", { staticClass: "custom-control custom-checkbox" }, [
+                    _c("input", {
+                      directives: [
+                        {
+                          name: "model",
+                          rawName: "v-model",
+                          value: _vm.updatePassword,
+                          expression: "updatePassword"
+                        }
+                      ],
+                      staticClass: "custom-control-input",
+                      attrs: { type: "checkbox", id: "chk-change-password" },
+                      domProps: {
+                        checked: Array.isArray(_vm.updatePassword)
+                          ? _vm._i(_vm.updatePassword, null) > -1
+                          : _vm.updatePassword
+                      },
+                      on: {
+                        change: function($event) {
+                          var $$a = _vm.updatePassword,
+                            $$el = $event.target,
+                            $$c = $$el.checked ? true : false
+                          if (Array.isArray($$a)) {
+                            var $$v = null,
+                              $$i = _vm._i($$a, $$v)
+                            if ($$el.checked) {
+                              $$i < 0 &&
+                                (_vm.updatePassword = $$a.concat([$$v]))
+                            } else {
+                              $$i > -1 &&
+                                (_vm.updatePassword = $$a
+                                  .slice(0, $$i)
+                                  .concat($$a.slice($$i + 1)))
+                            }
+                          } else {
+                            _vm.updatePassword = $$c
+                          }
+                        }
                       }
-                    ],
-                    staticClass: "form-control",
-                    on: {
-                      change: function($event) {
-                        var $$selectedVal = Array.prototype.filter
-                          .call($event.target.options, function(o) {
-                            return o.selected
-                          })
-                          .map(function(o) {
-                            var val = "_value" in o ? o._value : o.value
-                            return val
-                          })
-                        _vm.$set(
-                          _vm.selectedUser,
-                          "role",
-                          $event.target.multiple
-                            ? $$selectedVal
-                            : $$selectedVal[0]
-                        )
-                      }
-                    }
-                  },
-                  _vm._l(_vm.roles, function(item) {
-                    return _c("option", { domProps: { value: item.key } }, [
-                      _vm._v(_vm._s(item.value))
+                    }),
+                    _vm._v(" "),
+                    _c(
+                      "label",
+                      {
+                        staticClass: "custom-control-label",
+                        attrs: { for: "chk-change-password" }
+                      },
+                      [_vm._v("Update password")]
+                    )
+                  ])
+                ])
+              ]),
+              _vm._v(" "),
+              _vm.updatePassword
+                ? _c("div", { staticClass: "form-row" }, [
+                    _c("div", { staticClass: "col" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("New Password")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.selectedUser.new_password,
+                              expression: "selectedUser.new_password"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "password" },
+                          domProps: { value: _vm.selectedUser.new_password },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.selectedUser,
+                                "new_password",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
+                    ]),
+                    _vm._v(" "),
+                    _c("div", { staticClass: "col" }, [
+                      _c("div", { staticClass: "form-group" }, [
+                        _c("label", [_vm._v("Confirm new password")]),
+                        _vm._v(" "),
+                        _c("input", {
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.selectedUser.confirm_new_password,
+                              expression: "selectedUser.confirm_new_password"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          attrs: { type: "password" },
+                          domProps: {
+                            value: _vm.selectedUser.confirm_new_password
+                          },
+                          on: {
+                            input: function($event) {
+                              if ($event.target.composing) {
+                                return
+                              }
+                              _vm.$set(
+                                _vm.selectedUser,
+                                "confirm_new_password",
+                                $event.target.value
+                              )
+                            }
+                          }
+                        })
+                      ])
                     ])
-                  }),
-                  0
-                )
-              ])
+                  ])
+                : _vm._e()
             ]),
             _vm._v(" "),
-            _vm._m(1)
+            _c("div", { staticClass: "modal-footer" }, [
+              _c(
+                "button",
+                {
+                  staticClass: "btn btn-primary",
+                  attrs: { type: "button", disabled: !_vm.isFormValid },
+                  on: { click: _vm.onClickUpdateUser }
+                },
+                [_vm._v("Save changes")]
+              )
+            ])
           ])
         ])
       ]
@@ -659,18 +818,6 @@ var staticRenderFns = [
       },
       [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
     )
-  },
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "modal-footer" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-primary", attrs: { type: "button" } },
-        [_vm._v("Save changes")]
-      )
-    ])
   }
 ]
 render._withStripped = true
@@ -698,146 +845,160 @@ var render = function() {
     "div",
     [
       _c("div", { staticClass: "container" }, [
-        _c("div", { staticClass: "row justify-content-center" }, [
-          _c("div", { staticClass: "col-4" }, [
-            _c("div", { staticClass: "card" }, [
+        _c("div", { staticClass: "row justify-content-center mb-4" }, [
+          _c("div", { staticClass: "col-12 col-md-6 mb-4" }, [
+            _c("div", { staticClass: "card shadow shadow-sm" }, [
               _c("div", { staticClass: "card-header" }, [
                 _vm._v("Add New User")
               ]),
               _vm._v(" "),
               _c("div", { staticClass: "card-body" }, [
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Display name")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.userToAdd.display_name,
-                        expression: "userToAdd.display_name"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "text" },
-                    domProps: { value: _vm.userToAdd.display_name },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
+                _c("div", { staticClass: "form-row" }, [
+                  _c("div", { staticClass: "col" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Display name")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.userToAdd.display_name,
+                            expression: "userToAdd.display_name"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "text" },
+                        domProps: { value: _vm.userToAdd.display_name },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.userToAdd,
+                              "display_name",
+                              $event.target.value
+                            )
+                          }
                         }
-                        _vm.$set(
-                          _vm.userToAdd,
-                          "display_name",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("New Password")]),
+                      })
+                    ])
+                  ]),
                   _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.userToAdd.new_password,
-                        expression: "userToAdd.new_password"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "password" },
-                    domProps: { value: _vm.userToAdd.new_password },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.userToAdd,
-                          "new_password",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Confirm new password")]),
-                  _vm._v(" "),
-                  _c("input", {
-                    directives: [
-                      {
-                        name: "model",
-                        rawName: "v-model",
-                        value: _vm.userToAdd.confirm_new_password,
-                        expression: "userToAdd.confirm_new_password"
-                      }
-                    ],
-                    staticClass: "form-control",
-                    attrs: { type: "password" },
-                    domProps: { value: _vm.userToAdd.confirm_new_password },
-                    on: {
-                      input: function($event) {
-                        if ($event.target.composing) {
-                          return
-                        }
-                        _vm.$set(
-                          _vm.userToAdd,
-                          "confirm_new_password",
-                          $event.target.value
-                        )
-                      }
-                    }
-                  })
-                ]),
-                _vm._v(" "),
-                _c("div", { staticClass: "form-group" }, [
-                  _c("label", [_vm._v("Role")]),
-                  _vm._v(" "),
-                  _c(
-                    "select",
-                    {
-                      directives: [
+                  _c("div", { staticClass: "col" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Role")]),
+                      _vm._v(" "),
+                      _c(
+                        "select",
                         {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.userToAdd.role,
-                          expression: "userToAdd.role"
-                        }
-                      ],
-                      staticClass: "form-control",
-                      on: {
-                        change: function($event) {
-                          var $$selectedVal = Array.prototype.filter
-                            .call($event.target.options, function(o) {
-                              return o.selected
-                            })
-                            .map(function(o) {
-                              var val = "_value" in o ? o._value : o.value
-                              return val
-                            })
-                          _vm.$set(
-                            _vm.userToAdd,
-                            "role",
-                            $event.target.multiple
-                              ? $$selectedVal
-                              : $$selectedVal[0]
+                          directives: [
+                            {
+                              name: "model",
+                              rawName: "v-model",
+                              value: _vm.userToAdd.role,
+                              expression: "userToAdd.role"
+                            }
+                          ],
+                          staticClass: "form-control",
+                          on: {
+                            change: function($event) {
+                              var $$selectedVal = Array.prototype.filter
+                                .call($event.target.options, function(o) {
+                                  return o.selected
+                                })
+                                .map(function(o) {
+                                  var val = "_value" in o ? o._value : o.value
+                                  return val
+                                })
+                              _vm.$set(
+                                _vm.userToAdd,
+                                "role",
+                                $event.target.multiple
+                                  ? $$selectedVal
+                                  : $$selectedVal[0]
+                              )
+                            }
+                          }
+                        },
+                        _vm._l(_vm.roles, function(item) {
+                          return _c(
+                            "option",
+                            { domProps: { value: item.key } },
+                            [_vm._v(_vm._s(item.value))]
                           )
+                        }),
+                        0
+                      )
+                    ])
+                  ])
+                ]),
+                _vm._v(" "),
+                _c("div", { staticClass: "form-row" }, [
+                  _c("div", { staticClass: "col" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("New Password")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.userToAdd.new_password,
+                            expression: "userToAdd.new_password"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "password" },
+                        domProps: { value: _vm.userToAdd.new_password },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.userToAdd,
+                              "new_password",
+                              $event.target.value
+                            )
+                          }
                         }
-                      }
-                    },
-                    _vm._l(_vm.roles, function(item) {
-                      return _c("option", { domProps: { value: item.key } }, [
-                        _vm._v(_vm._s(item.value))
-                      ])
-                    }),
-                    0
-                  )
+                      })
+                    ])
+                  ]),
+                  _vm._v(" "),
+                  _c("div", { staticClass: "col" }, [
+                    _c("div", { staticClass: "form-group" }, [
+                      _c("label", [_vm._v("Confirm new password")]),
+                      _vm._v(" "),
+                      _c("input", {
+                        directives: [
+                          {
+                            name: "model",
+                            rawName: "v-model",
+                            value: _vm.userToAdd.confirm_new_password,
+                            expression: "userToAdd.confirm_new_password"
+                          }
+                        ],
+                        staticClass: "form-control",
+                        attrs: { type: "password" },
+                        domProps: { value: _vm.userToAdd.confirm_new_password },
+                        on: {
+                          input: function($event) {
+                            if ($event.target.composing) {
+                              return
+                            }
+                            _vm.$set(
+                              _vm.userToAdd,
+                              "confirm_new_password",
+                              $event.target.value
+                            )
+                          }
+                        }
+                      })
+                    ])
+                  ])
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "text-right" }, [
@@ -852,10 +1013,12 @@ var render = function() {
                 ])
               ])
             ])
-          ]),
-          _vm._v(" "),
-          _c("div", { staticClass: "col col-md-6" }, [
-            _c("div", { staticClass: "card" }, [
+          ])
+        ]),
+        _vm._v(" "),
+        _c("div", { staticClass: "row justify-content-center" }, [
+          _c("div", { staticClass: "col-12 col-md-6" }, [
+            _c("div", { staticClass: "card shadow shadow-sm" }, [
               _c("div", { staticClass: "card-header" }, [
                 _vm._v("\n            Manage Users\n          ")
               ]),

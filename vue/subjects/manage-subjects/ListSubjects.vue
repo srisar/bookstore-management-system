@@ -1,7 +1,7 @@
 <template>
   <div>
 
-    <div class="card">
+    <div class="card shadow shadow-sm">
       <div class="card-header">All Subjects</div>
       <div class="card-body">
 
@@ -9,13 +9,13 @@
           <thead>
           <tr>
             <th>Subject</th>
-            <th>Options</th>
+            <th class="text-center table-row-options">Options</th>
           </tr>
           </thead>
           <tbody>
           <tr v-for="subject in subjects">
             <td>{{ subject.subject_name }}</td>
-            <td>
+            <td class="text-center">
               <button class="btn btn-tiny btn-warning" @click="openEditModal(subject)"><i class="bi bi-pencil-fill"></i></button>
             </td>
           </tr>

@@ -15,32 +15,59 @@
           </div>
           <div class="modal-body">
 
-            <div class="form-group">
-              <label>Display name</label>
-              <input type="text" v-model="selectedUser.display_name" class="form-control">
+
+            <div class="form-row">
+
+              <div class="col">
+                <div class="form-group">
+                  <label>Display name</label>
+                  <input type="text" v-model="selectedUser.display_name" class="form-control">
+                </div>
+              </div><!-- col -->
+
+              <div class="col">
+                <div class="form-group">
+                  <label>Role</label>
+                  <select class="form-control" v-model="selectedUser.role">
+                    <option v-for="item in roles" :value="item.key">{{ item.value }}</option>
+                  </select>
+                </div>
+              </div><!-- col -->
+
+            </div><!-- row -->
+
+            <hr>
+            <div class="form-row">
+              <div class="col mb-2">
+
+                <div class="custom-control custom-checkbox">
+                  <input type="checkbox" class="custom-control-input" id="chk-change-password" v-model="updatePassword">
+                  <label for="chk-change-password" class="custom-control-label">Update password</label>
+                </div>
+
+              </div>
             </div>
 
-            <div class="form-group">
-              <label>New Password</label>
-              <input type="password" v-model="selectedUser.new_password" class="form-control">
-            </div>
+            <div v-if="updatePassword" class="form-row">
+              <div class="col">
+                <div class="form-group">
+                  <label>New Password</label>
+                  <input type="password" v-model="selectedUser.new_password" class="form-control">
+                </div>
+              </div><!-- col -->
 
-            <div class="form-group">
-              <label>Confirm new password</label>
-              <input type="password" v-model="selectedUser.confirm_new_password" class="form-control">
-            </div>
-
-            <div class="form-group">
-              <label>Role</label>
-              <select class="form-control" v-model="selectedUser.role">
-                <option v-for="item in roles" :value="item.key">{{ item.value }}</option>
-              </select>
-            </div>
+              <div class="col">
+                <div class="form-group">
+                  <label>Confirm new password</label>
+                  <input type="password" v-model="selectedUser.confirm_new_password" class="form-control">
+                </div>
+              </div><!-- col -->
+            </div><!-- row -->
 
 
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary">Save changes</button>
+            <button type="button" class="btn btn-primary" :disabled="!isFormValid" @click="onClickUpdateUser">Save changes</button>
           </div>
         </div>
       </div>
@@ -73,17 +100,25 @@ export default {
         {key: 'ADMIN', value: 'Administrator'},
       ],
 
+      updatePassword: false,
+
     }
   },
 
   watch: {
+
+    /*
+    * Watch for user prop: if set, then display the moral window
+    * */
     user: function (value) {
       if (value !== undefined) {
 
-       this.selectedUser.id = value.id;
-       this.selectedUser.username = value.username;
-       this.selectedUser.display_name = value.display_name;
-       this.selectedUser.role = value.role;
+        this.selectedUser.id = value.id;
+        this.selectedUser.username = value.username;
+        this.selectedUser.display_name = value.display_name;
+        this.selectedUser.role = value.role;
+        this.selectedUser.new_password = "";
+        this.selectedUser.confirm_new_password = "";
 
         this.showModal();
       }
@@ -97,12 +132,25 @@ export default {
     passwordValidated: function () {
       if (this.selectedUser.new_password === "") return false;
       return this.selectedUser.new_password === this.selectedUser.confirm_new_password;
-    }
+    },
+
+    isFormValid: function () {
+
+      if (this.updatePassword) {
+        return this.passwordValidated && this.selectedUser.display_name !== "";
+      }
+
+      return this.selectedUser.display_name !== "";
+
+    },
 
   },
 
   mounted() {
 
+    /*
+    * Empty selected user when modal is closed.
+    * */
     $("#modal-edit-user").on('hidden.bs.modal', (e) => {
       this.selectedUser = {
         id: "",
@@ -119,9 +167,31 @@ export default {
 
   methods: {
 
+    /*
+    * Show modal window
+    * */
     showModal() {
       $("#modal-edit-user").modal('show');
     },
+
+    onClickUpdateUser: function () {
+
+      $.post(`${getSiteURL()}/api/update/user.php`, {
+        id: this.selectedUser.id,
+        display_name: this.selectedUser.display_name,
+        password: this.selectedUser.new_password,
+        role: this.selectedUser.role,
+        change_password: this.updatePassword
+      }).done(r => {
+
+        console.log(r);
+
+      }).fail(e => {
+
+      });
+
+    },
+
 
   },
 }

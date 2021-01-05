@@ -2,16 +2,12 @@
 
 body {
     font-family: 'Roboto', sans-serif;
-    background-color: #f3f5f8;
+    background: #F5F6F7;
 }
 
-body, .form-control, .dropdown-menu, .btn, .input-group-text {
-    font-size: 0.9rem !important;
-}
 
 .card {
-    box-shadow: 0 0 20px #858585;
-    background-color: #f3f5f8;
+    /*box-shadow: 0 0 20px #858585;*/
 }
 
 .card-header {
@@ -37,4 +33,14 @@ body, .form-control, .dropdown-menu, .btn, .input-group-text {
     line-height: 1.5;
     border-radius: .2rem;
     text-transform: uppercase;
+}
+
+table {
+    background-color: white;
+}
+
+
+.table-row-options {
+    width: 80px;
+    text-align: center;
 }

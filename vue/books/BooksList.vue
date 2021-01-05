@@ -2,7 +2,7 @@
 
   <div>
 
-    <div class="card">
+    <div class="card shadow shadow-sm">
       <div class="card-header">Books</div>
       <div class="card-body">
 
@@ -12,14 +12,14 @@
             <tr>
               <th>Book</th>
               <th>Subject</th>
-              <th>Options</th>
+              <th class="table-row-options">Options</th>
             </tr>
             </thead>
             <tbody>
             <tr v-for="(item, index) in books">
               <td>{{ item.book_title }}</td>
               <td>{{ item.subject.subject_name }}</td>
-              <td>
+              <td class="text-center">
                 <button class="btn btn-tiny btn-warning" @click="onClickOpenEditModal(item)"><i class="bi bi-pencil-fill"></i></button>
               </td>
             </tr>

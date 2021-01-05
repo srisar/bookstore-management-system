@@ -3,27 +3,32 @@
   <div>
 
     <div class="container">
-      <div class="row">
+      <div class="row justify-content-center mb-4">
 
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-6">
 
-          <div class="card">
+          <div class="card shadow shadow-sm">
             <div class="card-header">Add a new book</div>
             <div class="card-body">
 
-              <div class="form-group">
-                <label>Book name</label>
-                <input type="text" class="form-control" v-model.trim="bookToSave.bookName">
-              </div>
+              <div class="form-row">
+                <div class="col">
+                  <div class="form-group">
+                    <label>Book name</label>
+                    <input type="text" class="form-control" v-model.trim="bookToSave.bookName">
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="form-group">
+                    <label>Subject</label>
+                    <select v-model="bookToSave.subjectId" class="form-control">
+                      <option value="-1" disabled>SELECT</option>
+                      <option v-for="(item, index) in subjectsList" :value="item.id" :key="index">{{ item.subject_name }}</option>
+                    </select>
+                  </div>
 
-              <div class="form-group">
-                <label>Subject</label>
-                <select v-model="bookToSave.subjectId" class="form-control">
-                  <option value="-1" disabled>SELECT</option>
-                  <option v-for="(item, index) in subjectsList" :value="item.id" :key="index">{{ item.subject_name }}</option>
-                </select>
-              </div>
-
+                </div>
+              </div><!-- row -->
 
               <div class="text-center">
                 <button class="btn btn-primary" :disabled="!isFormValid" @click="onClickSaveBook">Save</button>
@@ -34,13 +39,16 @@
 
         </div><!-- col -->
 
-        <div class="col-12 col-md-8">
+      </div><!-- row -->
+
+      <div class="row justify-content-center">
+        <div class="col col-md-10">
 
           <BooksList :event-bus="eventBus" :subjects-list="subjectsList"></BooksList>
 
-        </div><!-- col -->
+        </div>
+      </div>
 
-      </div><!-- row -->
     </div><!-- container -->
 
   </div><!-- root -->

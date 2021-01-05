@@ -1,17 +1,18 @@
 <template>
 
   <div class="container">
-    <div class="row justify-content-center">
-      <div class="col-4">
+    <div class="row justify-content-center mb-4">
+      <div class="col-12 col-md-4">
         <AddSubject :event-bus="eventBus"></AddSubject>
       </div><!--col-->
-
-
-      <div class="col-8">
-        <ListSubjects :event-bus="eventBus"></ListSubjects>
-      </div><!--col-->
-
     </div><!--row-->
+
+    <div class="row justify-content-center">
+      <div class="col col-md-4">
+        <ListSubjects :event-bus="eventBus"></ListSubjects>
+      </div>
+    </div><!-- row -->
+
   </div>
 
 </template>

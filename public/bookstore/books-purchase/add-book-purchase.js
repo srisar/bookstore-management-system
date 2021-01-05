@@ -25838,7 +25838,7 @@ var render = function() {
     _c("div", { staticClass: "container" }, [
       _c("div", { staticClass: "row justify-content-center" }, [
         _c("div", { staticClass: "col-6" }, [
-          _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card shadow shadow-sm" }, [
             _c("div", { staticClass: "card-header" }, [
               _vm._v("Add a book purchase")
             ]),

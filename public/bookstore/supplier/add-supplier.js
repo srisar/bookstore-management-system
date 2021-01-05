@@ -235,14 +235,14 @@ var render = function() {
     _c("div", { staticClass: "container" }, [
       _c("div", { staticClass: "row justify-content-center" }, [
         _c("div", { staticClass: "col-12 col-md-8" }, [
-          _c("div", { staticClass: "card" }, [
+          _c("div", { staticClass: "card shadow shadow-sm" }, [
             _c("div", { staticClass: "card-header" }, [
               _vm._v("Add a new supplier")
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "card-body" }, [
               _c("div", { attrs: { id: "add-new-supplier" } }, [
-                _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "form-row" }, [
                   _c("div", { staticClass: "col" }, [
                     _c("div", { staticClass: "form-group" }, [
                       _c("label", [_vm._v("Supplier Name")]),
@@ -306,7 +306,7 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "form-row" }, [
                   _c("div", { staticClass: "col" }, [
                     _c("div", { staticClass: "form-group" }, [
                       _c("label", [_vm._v("Email")]),
@@ -368,7 +368,7 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _c("div", { staticClass: "row" }, [
+                _c("div", { staticClass: "form-row" }, [
                   _c("div", { staticClass: "col" }, [
                     _c("div", { staticClass: "form-group" }, [
                       _c("label", [_vm._v("Website")]),

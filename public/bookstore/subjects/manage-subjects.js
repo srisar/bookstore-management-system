@@ -213,6 +213,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 
 
 
@@ -478,11 +479,11 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "card" }, [
+  return _c("div", { staticClass: "card shadow shadow-sm" }, [
     _c("div", { staticClass: "card-header" }, [_vm._v("Add Subject")]),
     _vm._v(" "),
     _c("div", { staticClass: "card-body" }, [
-      _c("div", { staticClass: "row" }, [
+      _c("div", { staticClass: "form-row" }, [
         _c("div", { staticClass: "col" }, [
           _c("div", { staticClass: "form-group" }, [
             _c("label", { attrs: { for: "field_subject" } }, [
@@ -512,7 +513,7 @@ var render = function() {
             })
           ]),
           _vm._v(" "),
-          _c("div", { staticClass: "text-right" }, [
+          _c("div", { staticClass: "text-center" }, [
             _c(
               "button",
               {
@@ -551,7 +552,7 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", [
-    _c("div", { staticClass: "card" }, [
+    _c("div", { staticClass: "card shadow shadow-sm" }, [
       _c("div", { staticClass: "card-header" }, [_vm._v("All Subjects")]),
       _vm._v(" "),
       _c("div", { staticClass: "card-body" }, [
@@ -567,7 +568,7 @@ var render = function() {
                 return _c("tr", [
                   _c("td", [_vm._v(_vm._s(subject.subject_name))]),
                   _vm._v(" "),
-                  _c("td", [
+                  _c("td", { staticClass: "text-center" }, [
                     _c(
                       "button",
                       {
@@ -660,7 +661,9 @@ var staticRenderFns = [
       _c("tr", [
         _c("th", [_vm._v("Subject")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Options")])
+        _c("th", { staticClass: "text-center table-row-options" }, [
+          _vm._v("Options")
+        ])
       ])
     ])
   },
@@ -716,17 +719,19 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "container" }, [
+    _c("div", { staticClass: "row justify-content-center mb-4" }, [
+      _c(
+        "div",
+        { staticClass: "col-12 col-md-4" },
+        [_c("AddSubject", { attrs: { "event-bus": _vm.eventBus } })],
+        1
+      )
+    ]),
+    _vm._v(" "),
     _c("div", { staticClass: "row justify-content-center" }, [
       _c(
         "div",
-        { staticClass: "col-4" },
-        [_c("AddSubject", { attrs: { "event-bus": _vm.eventBus } })],
-        1
-      ),
-      _vm._v(" "),
-      _c(
-        "div",
-        { staticClass: "col-8" },
+        { staticClass: "col col-md-4" },
         [_c("ListSubjects", { attrs: { "event-bus": _vm.eventBus } })],
         1
       )

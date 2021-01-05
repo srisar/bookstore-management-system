@@ -8,12 +8,12 @@
 
         <div class="col-12 col-md-8">
 
-          <div class="card">
+          <div class="card shadow shadow-sm">
             <div class="card-header">Add a new supplier</div>
             <div class="card-body">
               <div id="add-new-supplier">
 
-                <div class="row">
+                <div class="form-row">
 
                   <div class="col">
                     <div class="form-group">
@@ -30,7 +30,7 @@
 
                 </div><!-- .row -->
 
-                <div class="row">
+                <div class="form-row">
 
                   <div class="col">
 
@@ -50,7 +50,7 @@
 
                 </div><!-- .row -->
 
-                <div class="row">
+                <div class="form-row">
                   <div class="col">
                     <div class="form-group">
                       <label>Website</label>

@@ -1,10 +1,10 @@
 <template>
 
-  <div class="card">
+  <div class="card shadow shadow-sm">
     <div class="card-header">Add Subject</div>
     <div class="card-body">
 
-      <div class="row">
+      <div class="form-row">
         <div class="col">
 
           <div class="form-group">
@@ -12,7 +12,7 @@
             <input type="text" class="form-control" id="field_subject" v-model="subjectName">
           </div>
 
-          <div class="text-right">
+          <div class="text-center">
             <button type="button" class="btn btn-success" :disabled="!isValid" @click="save">Save</button>
           </div>
 

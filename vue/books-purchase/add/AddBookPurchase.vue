@@ -8,7 +8,7 @@
         <div class="col-6">
 
 
-          <div class="card">
+          <div class="card shadow shadow-sm">
             <div class="card-header">Add a book purchase</div>
             <div class="card-body">
 

@@ -87,9 +87,36 @@ class User implements IModel
 
     }
 
-    public function update()
+    /**
+     * @return bool
+     */
+    public function update(): bool
     {
 
+        $data = [
+            'display_name' => $this->display_name,
+            'role' => $this->role,
+        ];
+
+        return Database::update(self::TABLE, $data, ['id' => $this->id]);
+
+    }
+
+    /**
+     * @return bool
+     */
+    public function updateWithPassword(): bool
+    {
+
+        $hashedPassword = password_hash($this->password_string, PASSWORD_DEFAULT);
+
+        $data = [
+            'display_name' => $this->display_name,
+            'role' => $this->role,
+            'password' => $hashedPassword
+        ];
+
+        return Database::update(self::TABLE, $data, ['id' => $this->id]);
 
     }
 

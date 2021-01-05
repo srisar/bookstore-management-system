@@ -1,11 +1,11 @@
 {
-    "/bookstore/homepage/home.app.js": "/bookstore/homepage/home.app.js",
-    "/bookstore/supplier/add-supplier.js": "/bookstore/supplier/add-supplier.js",
-    "/bookstore/supplier/edit-supplier.js": "/bookstore/supplier/edit-supplier.js",
-    "/bookstore/supplier/manage-suppliers.js": "/bookstore/supplier/manage-suppliers.js",
-    "/bookstore/users/manage-users.js": "/bookstore/users/manage-users.js",
-    "/bookstore/subjects/manage-subjects.js": "/bookstore/subjects/manage-subjects.js",
-    "/bookstore/books/manage-books.js": "/bookstore/books/manage-books.js",
-    "/bookstore/books-purchase/add-book-purchase.js": "/bookstore/books-purchase/add-book-purchase.js",
-    "/bookstore/books-purchase/view-all-book-purchases.js": "/bookstore/books-purchase/view-all-book-purchases.js"
+    "/public/bookstore/homepage/home.app.js": "/public/bookstore/homepage/home.app.js",
+    "/public/bookstore/supplier/add-supplier.js": "/public/bookstore/supplier/add-supplier.js",
+    "/public/bookstore/supplier/edit-supplier.js": "/public/bookstore/supplier/edit-supplier.js",
+    "/public/bookstore/supplier/manage-suppliers.js": "/public/bookstore/supplier/manage-suppliers.js",
+    "/public/bookstore/users/manage-users.js": "/public/bookstore/users/manage-users.js",
+    "/public/bookstore/subjects/manage-subjects.js": "/public/bookstore/subjects/manage-subjects.js",
+    "/public/bookstore/books/manage-books.js": "/public/bookstore/books/manage-books.js",
+    "/public/bookstore/books-purchase/add-book-purchase.js": "/public/bookstore/books-purchase/add-book-purchase.js",
+    "/public/bookstore/books-purchase/view-all-book-purchases.js": "/public/bookstore/books-purchase/view-all-book-purchases.js"
 }
